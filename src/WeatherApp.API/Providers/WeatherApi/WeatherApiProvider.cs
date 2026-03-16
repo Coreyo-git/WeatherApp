@@ -1,0 +1,35 @@
+using System.Net.Http.Json;
+using System.Text.Json;
+using Microsoft.Extensions.Options;
+using WeatherApp.API.Domain;
+using WeatherApp.API.Infrastructure.Configuration;
+using WeatherApp.API.Providers.WeatherApi.Dto;
+
+namespace WeatherApp.API.Providers.WeatherApi;
+
+internal sealed class WeatherApiProvider : IWeatherProvider
+{
+    private readonly HttpClient _httpClient;
+    private readonly WeatherApiOptions _options;
+
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+    };
+
+    public WeatherApiProvider(HttpClient httpClient, IOptions<WeatherApiOptions> options)
+    {
+        _httpClient = httpClient;
+        _options = options.Value;
+    }
+
+    public async Task<WeatherForecast> GetForecastAsync(WeatherQuery query, CancellationToken cancellationToken = default)
+    {
+        var url = $"forecast.json?key={_options.ApiKey}&q={Uri.EscapeDataString(query.Query)}&days=1&aqi=no&alerts=no";
+
+        var response = await _httpClient.GetFromJsonAsync<WeatherApiForecastResponse>(url, JsonOptions, cancellationToken)
+            ?? throw new InvalidOperationException("WeatherAPI returned an empty response.");
+
+        return WeatherApiMapper.MapToForecast(response);
+    }
+}
