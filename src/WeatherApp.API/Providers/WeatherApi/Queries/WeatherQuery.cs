@@ -1,6 +1,6 @@
 namespace WeatherApp.API.Providers;
 
-/// <summary>Query parameters for a weather API request.</summary>
+/// <summary>Query parameters for a city search weather API request.</summary>
 public sealed record WeatherQuery
 {
     /// <summary>The city name passed to the weather API.</summary>
@@ -14,7 +14,7 @@ public sealed record WeatherQuery
     public static WeatherQuery For(string input, Language? lang = null)
     {
         if (string.IsNullOrWhiteSpace(input))
-            throw new ArgumentException("Location is required.", nameof(input));
+            throw new ArgumentException("An Id or URL is required.", nameof(input));
 
         return new WeatherQuery { Query = input, Lang = lang };
     }
