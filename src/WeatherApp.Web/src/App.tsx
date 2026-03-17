@@ -23,8 +23,9 @@ function App() {
               location={forecast?.location.country ?? ""}
               onSelectedSearchResult={handleSelectedSearchResult}
           />
-          {error && <p>{error}</p>}
-
+		  {error && <p>{error}</p>}
+		  {/* TODO: Create Day Selection Button Scroller */}
+		  {/* TODO: Create forecast Component */}
           {forecast && (
               <section>
                   <h2>

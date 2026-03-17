@@ -16,12 +16,15 @@ internal sealed class WeatherApiProvider : IWeatherProvider
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
     };
 
-    public WeatherApiProvider(HttpClient httpClient, IOptions<WeatherApiOptions> options)
-    {
-        _httpClient = httpClient;
-        _options = options.Value;
-    }
+	public WeatherApiProvider(HttpClient httpClient, IOptions<WeatherApiOptions> options)
+	{
+		_httpClient = httpClient;
+		_options = options.Value;
+	}
 
+	
+	// TODO Handle Response codes from WeatherAPI
+	// TODO Logging in general 
 	public async Task<WeatherForecast> GetForecastAsync(WeatherQuery query, CancellationToken cancellationToken = default)
 	{
 		var url = $"forecast.json?key={_options.ApiKey}&q=id:{query.Query}&days=7&aqi=no&alerts=no";
