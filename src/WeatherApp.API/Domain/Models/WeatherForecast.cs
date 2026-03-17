@@ -1,4 +1,6 @@
-namespace WeatherApp.API.Domain;
+using WeatherApp.API.Domain.ValueObjects;
+
+namespace WeatherApp.API.Domain.Models;
 
 /// <summary>Today's weather forecast — current conditions and the full day breakdown for a location.</summary>
 public sealed record WeatherForecast

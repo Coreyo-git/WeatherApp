@@ -1,4 +1,4 @@
-namespace WeatherApp.API.Domain;
+namespace WeatherApp.API.Domain.Models;
 
 /// <summary>A single forecast day — daily summary, astronomical data, and hourly snapshots.</summary>
 public sealed record ForecastDay

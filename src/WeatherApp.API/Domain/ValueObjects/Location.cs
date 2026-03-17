@@ -1,4 +1,4 @@
-namespace WeatherApp.API.Domain;
+namespace WeatherApp.API.Domain.ValueObjects;
 
 public sealed record Location
 {

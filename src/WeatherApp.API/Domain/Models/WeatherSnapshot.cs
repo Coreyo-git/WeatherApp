@@ -1,4 +1,6 @@
-namespace WeatherApp.API.Domain;
+using WeatherApp.API.Domain.ValueObjects;
+
+namespace WeatherApp.API.Domain.Models;
 
 /// <summary>
 /// Weather at a specific point in time. Used for both current conditions and individual hourly entries.

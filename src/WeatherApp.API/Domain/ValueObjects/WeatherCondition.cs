@@ -1,4 +1,4 @@
-namespace WeatherApp.API.Domain;
+namespace WeatherApp.API.Domain.ValueObjects;
 
 /// <summary>The condition at a point in time — shared across current, hourly, and daily forecasts.</summary>
 public sealed record WeatherCondition

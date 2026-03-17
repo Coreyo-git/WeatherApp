@@ -1,4 +1,6 @@
-namespace WeatherApp.API.Domain;
+using WeatherApp.API.Domain.ValueObjects;
+
+namespace WeatherApp.API.Domain.Models;
 
 /// <summary>Aggregated weather summary for a full day — highs, lows, totals, and precipitation chances.</summary>
 public sealed record DailyForecastSummary

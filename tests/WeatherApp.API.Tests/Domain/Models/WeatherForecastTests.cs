@@ -1,5 +1,7 @@
 using FluentAssertions;
 using WeatherApp.API.Domain;
+using WeatherApp.API.Domain.Models;
+using WeatherApp.API.Domain.ValueObjects;
 
 namespace WeatherApp.API.Tests.Domain.Models;
 
