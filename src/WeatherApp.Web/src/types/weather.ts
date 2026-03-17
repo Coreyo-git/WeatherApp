@@ -42,3 +42,12 @@ export interface WeatherForecast {
   current: WeatherSnapshot;
   today: ForecastDay;
 }
+
+export interface CitySearchResult {
+    id: number;
+    name: string;
+    region: string;
+    country: string;
+    latitude: number;
+    longitude: number;
+} 

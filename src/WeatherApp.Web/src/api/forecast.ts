@@ -1,6 +1,6 @@
 import type { WeatherForecast } from "../types/weather";
 
-export async function getForecast(query: string): Promise<WeatherForecast> {
+export async function getForecast(query: number): Promise<WeatherForecast> {
   const response = await fetch(`/api/forecast?query=${encodeURIComponent(query)}`);
 
   if (!response.ok) {
