@@ -1,11 +1,23 @@
 using System.Globalization;
-using WeatherApp.API.Domain;
+using WeatherApp.API.Domain.Models;
+using WeatherApp.API.Domain.ValueObjects;
 using WeatherApp.API.Providers.WeatherApi.Dto;
 
 namespace WeatherApp.API.Providers.WeatherApi;
 
 internal static class WeatherApiMapper
 {
+	internal static CitySearchResult MapToCitySearchResult(WeatherApiCitySearchResponse response)
+	{
+		return CitySearchResult.Create(
+			response.Id,
+			response.Name,
+			response.Region,
+			response.Country,
+			response.Latitude,
+			response.Longitude);
+	}
+
     internal static WeatherForecast MapToForecast(WeatherApiForecastResponse response)
     {
         var location = MapLocation(response.Location);
@@ -70,6 +82,6 @@ internal static class WeatherApiMapper
             moonIllumination: dto.Astro.MoonIllumination);
     }
 
-    private static TimeOnly ParseAstroTime(string time) =>
-        TimeOnly.ParseExact(time, "h:mm tt", CultureInfo.InvariantCulture);
+	private static TimeOnly ParseAstroTime(string time) =>
+		TimeOnly.ParseExact(time, "h:mm tt", CultureInfo.InvariantCulture);
 }

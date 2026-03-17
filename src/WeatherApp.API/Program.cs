@@ -31,5 +31,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapForecastEndpoints();
+app.MapCitySearchEndpoints();
 
 app.Run();
