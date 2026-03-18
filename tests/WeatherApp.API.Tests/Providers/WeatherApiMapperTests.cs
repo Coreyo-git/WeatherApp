@@ -51,11 +51,7 @@ public class WeatherApiMapperTests
                     Uv: 1.7),
                 Astro: new WeatherApiAstroDto(
                     Sunrise: "05:49 AM",
-                    Sunset: "06:04 PM",
-                    Moonrise: "02:40 AM",
-                    Moonset: "04:21 PM",
-                    MoonPhase: "Waning Crescent",
-                    MoonIllumination: 11))
+                    Sunset: "06:04 PM"))
         ]));
 
     [Fact]
@@ -127,8 +123,6 @@ public class WeatherApiMapperTests
 
         today.Sunrise.Should().Be(new TimeOnly(5, 49));
         today.Sunset.Should().Be(new TimeOnly(18, 4));
-        today.MoonPhase.Should().Be("Waning Crescent");
-        today.MoonIllumination.Should().Be(11);
     }
 
     [Fact]
