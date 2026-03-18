@@ -19,16 +19,24 @@ export interface WeatherSnapshot {
 export interface DailyForecastSummary {
     maxTemperatureCelsius: number;
     minTemperatureCelsius: number;
+    avgTemperatureCelsius: number;
+    maxWindKph: number;
+    totalPrecipitationMm: number;
+    totalSnowCm: number;
+    avgVisibilityKm: number;
+    avgHumidity: number;
     chanceOfRain: number;
     chanceOfSnow: number;
     condition: WeatherCondition;
+    uvIndex: number;
 }
 
 export interface ForecastDay {
     date: string;
     summary: DailyForecastSummary;
     sunrise: string;
-    sunset: string;
+	sunset: string;
+	hours: WeatherSnapshot[];
 }
 
 export interface Location {
