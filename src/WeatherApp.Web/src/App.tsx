@@ -1,38 +1,51 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getForecast } from "./api/forecast";
 import { Header } from "./components/Header/Header";
 import { ForecastSummary } from "./components/ForecastSummary";
-import type { WeatherForecast } from "./types/weather";
+import type {
+	WeatherForecast,
+	ForecastQuery,
+} from "./types/weather";
+import { createForecastQuery } from "./types/weather"
 
 function App() {
 	const [forecast, setForecast] = useState<WeatherForecast | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
-	async function handleSelectedSearchResult(cityId: number) {
+	async function handleSelectedSearchResult(query: ForecastQuery) {
 		try {
 			setError(null);
-			setForecast(await getForecast(cityId));
+			setForecast(await getForecast(query));
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Something went wrong.");
 		}
 	}
 
+	useEffect(() => {
+		navigator.geolocation.getCurrentPosition((pos) => {
+			const coords = createForecastQuery([pos.coords.latitude, pos.coords.longitude])
+
+			getForecast(coords).then((forecast) =>
+				setForecast(forecast),
+			)
+		}); 
+	},[])
+
   return (
       <main>
           <Header
-              location={forecast?.location.country ?? ""}
+              location={
+                  forecast
+                      ? `${forecast.location.name}, ${forecast.location.region}, ${forecast.location.country}`
+                      : ""
+              }
               onSelectedSearchResult={handleSelectedSearchResult}
           />
-		  {error && <p>{error}</p>}
-		  {/* TODO: Create Day Selection Button Scroller */}
-		  {/* TODO: Create forecast Component */}
+          {error && <p>{error}</p>}
+          {/* TODO: Create Day Selection Button Scroller */}
+          {/* TODO: Create forecast Component */}
           {forecast && (
               <section>
-                  <h2>
-                      {forecast.location.name}, {forecast.location.region},{" "}
-                      {forecast.location.country}
-                  </h2>
-
                   <div>
                       <img
                           src={`https:${forecast.current.condition.iconUrl}`}
