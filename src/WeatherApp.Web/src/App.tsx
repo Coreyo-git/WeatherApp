@@ -50,9 +50,13 @@ function App() {
                         setForecast(result);
                         setSelectedDate(result.today.date);
                     })
+                    .catch(() => setError("Failed to load forecast. Please try searching for a location."))
                     .finally(() => setIsLoading(false));
             },
-            () => setIsLoading(false),
+            () => {
+                setIsLoading(false);
+                setError("Location access was denied. Search for a city to get started.");
+            },
         );
     }, []);
 
