@@ -22,12 +22,11 @@ internal sealed class WeatherApiProvider : IWeatherProvider
 		_options = options.Value;
 	}
 
-	
 	// TODO Handle Response codes from WeatherAPI
 	// TODO Logging in general 
 	public async Task<WeatherForecast> GetForecastAsync(WeatherQuery query, CancellationToken cancellationToken = default)
 	{
-		var url = $"forecast.json?key={_options.ApiKey}&q=id:{query.Query}&days=7&aqi=no&alerts=no";
+		var url = $"forecast.json?key={_options.ApiKey}&q={query.Query}&days=7&aqi=no&alerts=no";
 
 		var response = await _httpClient.GetFromJsonAsync<WeatherApiForecastResponse>(url, JsonOptions, cancellationToken)
 			?? throw new InvalidOperationException("WeatherAPI forecast returned an empty response.");
