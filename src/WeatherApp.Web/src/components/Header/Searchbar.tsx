@@ -1,5 +1,6 @@
 import AsyncSelect from "react-select/async";
 import { Search } from "lucide-react";
+import { useState } from "react";
 import type { SingleValue } from "react-select";
 import { searchCities } from "../../api/cities";
 import type { CitySearchResult, ForecastQuery } from "../../types/weather";
@@ -19,6 +20,7 @@ function toOption(r: CitySearchResult): Option {
 }
 
 export function Searchbar({ onSelectedSearchResult }: Props) {
+    const [value, setValue] = useState<SingleValue<Option>>(null);
     // Called by AsyncSelect on each keystroke. Returns an empty array until the
     // input is at least 3 characters to avoid unnecessary API calls.
     async function loadOptions(inputValue: string): Promise<Option[]> {
@@ -29,9 +31,11 @@ export function Searchbar({ onSelectedSearchResult }: Props) {
     }
 
     // Fires when the user selects a result from the dropdown.
+    // Reset value to null immediately so the input clears back to the placeholder.
     function handleChange(option: SingleValue<Option>) {
         if (option) {
             onSelectedSearchResult(createForecastQuery(option.value));
+            setValue(null);
         }
     }
 
@@ -39,6 +43,7 @@ export function Searchbar({ onSelectedSearchResult }: Props) {
         // noOptionsMessage returns null so no "No options" text appears while the
         // user is still typing or when the input is below the minimum length.
         <AsyncSelect
+            value={value}
             loadOptions={loadOptions}
             onChange={handleChange}
             isClearable={true}
