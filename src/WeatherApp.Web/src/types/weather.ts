@@ -41,6 +41,7 @@ export interface WeatherForecast {
     location: Location;
     current: WeatherSnapshot;
     today: ForecastDay;
+    days: ForecastDay[];
 }
 
 export interface CitySearchResult {
