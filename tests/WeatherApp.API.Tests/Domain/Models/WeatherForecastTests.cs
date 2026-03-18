@@ -13,18 +13,20 @@ public class WeatherForecastTests
         var location = BuildLocation();
         var current = BuildSnapshot();
         var today = BuildForecastDay();
+        var days = new[] { today };
 
-        var forecast = WeatherForecast.Create(location, current, today);
+        var forecast = WeatherForecast.Create(location, current, today, days);
 
         forecast.Location.Should().Be(location);
         forecast.Current.Should().Be(current);
         forecast.Today.Should().Be(today);
+        forecast.Days.Should().BeEquivalentTo(days);
     }
 
     [Fact]
     public void Create_WithNullLocation_Throws()
     {
-        Action act = () => WeatherForecast.Create(null!, BuildSnapshot(), BuildForecastDay());
+        Action act = () => WeatherForecast.Create(null!, BuildSnapshot(), BuildForecastDay(), []);
 
         act.Should().Throw<ArgumentNullException>().WithParameterName("location");
     }
@@ -32,7 +34,7 @@ public class WeatherForecastTests
     [Fact]
     public void Create_WithNullCurrent_Throws()
     {
-        Action act = () => WeatherForecast.Create(BuildLocation(), null!, BuildForecastDay());
+        Action act = () => WeatherForecast.Create(BuildLocation(), null!, BuildForecastDay(), []);
 
         act.Should().Throw<ArgumentNullException>().WithParameterName("current");
     }
@@ -40,9 +42,17 @@ public class WeatherForecastTests
     [Fact]
     public void Create_WithNullToday_Throws()
     {
-        Action act = () => WeatherForecast.Create(BuildLocation(), BuildSnapshot(), null!);
+        Action act = () => WeatherForecast.Create(BuildLocation(), BuildSnapshot(), null!, []);
 
         act.Should().Throw<ArgumentNullException>().WithParameterName("today");
+    }
+
+    [Fact]
+    public void Create_WithNullDays_Throws()
+    {
+        Action act = () => WeatherForecast.Create(BuildLocation(), BuildSnapshot(), BuildForecastDay(), null!);
+
+        act.Should().Throw<ArgumentNullException>().WithParameterName("days");
     }
 
     // --- builders ---
@@ -92,9 +102,5 @@ public class WeatherForecastTests
                 uvIndex: 1.7),
             hours: [],
             sunrise: new TimeOnly(5, 48),
-            sunset: new TimeOnly(18, 22),
-            moonrise: new TimeOnly(20, 10),
-            moonset: new TimeOnly(7, 5),
-            moonPhase: "Waning Gibbous",
-            moonIllumination: 72);
+            sunset: new TimeOnly(18, 22));
 }

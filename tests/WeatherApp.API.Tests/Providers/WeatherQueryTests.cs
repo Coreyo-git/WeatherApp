@@ -6,29 +6,35 @@ namespace WeatherApp.API.Tests.Providers;
 public class WeatherQueryTests
 {
     [Fact]
-    public void WithCityName_SetsQuery()
+    public void ForId_SetsQueryWithIdPrefix()
     {
-        var query = WeatherQuery.For("Brisbane");
+        var query = WeatherQuery.For(12345);
 
-        query.Query.Should().Be("Brisbane");
+        query.Query.Should().Be("id:12345");
         query.Lang.Should().BeNull();
     }
 
-    [Theory]
-    [InlineData("")]
-    [InlineData("   ")]
-    public void WithEmptyInput_Throws(string input)
+    [Fact]
+    public void ForCoordinates_SetsQueryAsLatLon()
     {
-        Action act = () => WeatherQuery.For(input);
+        var query = WeatherQuery.For(-27.5, 153.02);
 
-        act.Should().Throw<ArgumentException>().WithParameterName("input");
+        query.Query.Should().Be("-27.5,153.02");
+        query.Lang.Should().BeNull();
     }
 
     [Fact]
-	
-    public void WithLanguage_SetsLang()
+    public void ForId_WithLanguage_SetsLang()
     {
-        var query = WeatherQuery.For("Brisbane", Language.French);
+        var query = WeatherQuery.For(12345, Language.French);
+
+        query.Lang.Should().Be(Language.French);
+    }
+
+    [Fact]
+    public void ForCoordinates_WithLanguage_SetsLang()
+    {
+        var query = WeatherQuery.For(-27.5, 153.02, Language.French);
 
         query.Lang.Should().Be(Language.French);
     }
