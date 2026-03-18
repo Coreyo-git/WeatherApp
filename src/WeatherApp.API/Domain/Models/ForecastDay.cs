@@ -10,12 +10,6 @@ public sealed record ForecastDay
     // Astro
     public TimeOnly Sunrise { get; init; }
     public TimeOnly Sunset { get; init; }
-    public TimeOnly Moonrise { get; init; }
-    public TimeOnly Moonset { get; init; }
-    /// <summary>Moon phase description, e.g. "Waning Crescent".</summary>
-    public string MoonPhase { get; init; } = string.Empty;
-    /// <summary>Percentage of the moon illuminated (0–100).</summary>
-    public int MoonIllumination { get; init; }
 
     private ForecastDay() { }
 
@@ -24,20 +18,10 @@ public sealed record ForecastDay
         DailyForecastSummary summary,
         IReadOnlyList<WeatherSnapshot> hours,
         TimeOnly sunrise,
-        TimeOnly sunset,
-        TimeOnly moonrise,
-        TimeOnly moonset,
-        string moonPhase,
-        int moonIllumination)
+        TimeOnly sunset)
     {
         ArgumentNullException.ThrowIfNull(summary);
         ArgumentNullException.ThrowIfNull(hours);
-
-        if (string.IsNullOrWhiteSpace(moonPhase))
-            throw new ArgumentException("Moon phase is required.", nameof(moonPhase));
-
-        if (moonIllumination is < 0 or > 100)
-            throw new ArgumentOutOfRangeException(nameof(moonIllumination), "Moon illumination must be between 0 and 100.");
 
         return new ForecastDay
         {
@@ -45,11 +29,7 @@ public sealed record ForecastDay
             Summary = summary,
             Hours = hours,
             Sunrise = sunrise,
-            Sunset = sunset,
-            Moonrise = moonrise,
-            Moonset = moonset,
-            MoonPhase = moonPhase,
-            MoonIllumination = moonIllumination
+            Sunset = sunset
         };
     }
 }

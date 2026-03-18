@@ -75,11 +75,7 @@ internal static class WeatherApiMapper
             summary: summary,
             hours: [],
             sunrise: ParseAstroTime(dto.Astro.Sunrise),
-            sunset: ParseAstroTime(dto.Astro.Sunset),
-            moonrise: ParseAstroTime(dto.Astro.Moonrise),
-            moonset: ParseAstroTime(dto.Astro.Moonset),
-            moonPhase: dto.Astro.MoonPhase,
-            moonIllumination: dto.Astro.MoonIllumination);
+            sunset: ParseAstroTime(dto.Astro.Sunset));
     }
 
 	private static TimeOnly ParseAstroTime(string time) =>

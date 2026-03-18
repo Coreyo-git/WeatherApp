@@ -58,8 +58,4 @@ internal sealed record WeatherApiDayDto(
 
 internal sealed record WeatherApiAstroDto(
     string Sunrise,
-    string Sunset,
-    string Moonrise,
-    string Moonset,
-    string MoonPhase,
-    int MoonIllumination);
+    string Sunset);
