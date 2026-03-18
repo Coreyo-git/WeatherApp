@@ -15,7 +15,7 @@ export function Header({ location, isLoading, onSelectedSearchResult }: Props) {
             <h1 className="text-3xl font-bold">Weather Forecast</h1>
             <div className="flex items-end gap-4">
                 {isLoading ? (
-                    <Loader2 size={20} className="animate-spin" />
+                    <Loader2 size={32} className="animate-spin" />
                 ) : location && (
                     <p className="flex items-center gap-1 text-sm">
                         <MapPin size={20} />
