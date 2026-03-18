@@ -1,16 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+@import "tailwindcss";
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #f1f5f9;        /* bright white-ish */
+  font-weight: 600;      /* thicker baseline */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-image: url("/src/assets/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 main {
-  max-width: 960px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 1rem;
 }
