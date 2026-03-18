@@ -22,9 +22,9 @@ internal static class WeatherApiMapper
     {
         var location = MapLocation(response.Location);
         var current = MapSnapshot(response.Current);
-        var today = MapForecastDay(response.Forecast.Forecastday[0]);
+        var days = response.Forecast.Forecastday.Select(MapForecastDay).ToList();
 
-        return WeatherForecast.Create(location, current, today);
+        return WeatherForecast.Create(location, current, days[0], days);
     }
 
     private static Location MapLocation(WeatherApiLocationDto dto) =>
