@@ -73,11 +73,34 @@ internal static class WeatherApiMapper
         return ForecastDay.Create(
             date: DateOnly.Parse(dto.Date, CultureInfo.InvariantCulture),
             summary: summary,
-            hours: [],
+			hours: dto.Hour.Select(MapHourSnapshot).ToList(),
             sunrise: ParseAstroTime(dto.Astro.Sunrise),
             sunset: ParseAstroTime(dto.Astro.Sunset));
     }
 
 	private static TimeOnly ParseAstroTime(string time) =>
 		TimeOnly.ParseExact(time, "h:mm tt", CultureInfo.InvariantCulture);
+
+	private static WeatherSnapshot MapHourSnapshot(WeatherApiHourDto dto) =>
+	WeatherSnapshot.Create(
+		time: DateTimeOffset.FromUnixTimeSeconds(dto.TimeEpoch),
+		isDay: dto.IsDay == 1,
+		condition: MapCondition(dto.Condition),
+		temperatureCelsius: dto.TempC,
+		feelsLikeCelsius: dto.FeelslikeC,
+		windChillCelsius: dto.WindchillC,
+		heatIndexCelsius: dto.HeatindexC,
+		dewPointCelsius: dto.DewpointC,
+		windSpeedKph: dto.WindKph,
+		gustKph: dto.GustKph,
+		windDegree: dto.WindDegree,
+		windDirection: dto.WindDir,
+		pressureMb: dto.PressureMb,
+		precipitationMm: dto.PrecipMm,
+		cloudCoverage: dto.Cloud,
+		humidity: dto.Humidity,
+		visibilityKm: dto.VisKm,
+		uvIndex: dto.Uv,
+		chanceOfRain: dto.ChanceOfRain,
+		chanceOfSnow: dto.ChanceOfSnow);
 }

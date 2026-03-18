@@ -40,7 +40,8 @@ internal sealed record WeatherApiForecastDto(List<WeatherApiForecastDayDto> Fore
 internal sealed record WeatherApiForecastDayDto(
     string Date,
     WeatherApiDayDto Day,
-    WeatherApiAstroDto Astro);
+	WeatherApiAstroDto Astro,
+	List<WeatherApiHourDto> Hour);
 
 internal sealed record WeatherApiDayDto(
     double MaxtempC,
@@ -57,5 +58,28 @@ internal sealed record WeatherApiDayDto(
     double Uv);
 
 internal sealed record WeatherApiAstroDto(
-    string Sunrise,
-    string Sunset);
+	string Sunrise,
+	string Sunset);
+
+internal sealed record WeatherApiHourDto(
+	long TimeEpoch,
+	double TempC,
+	int IsDay,
+	WeatherApiConditionDto Condition,
+	double WindKph,
+	int WindDegree,
+	string WindDir,
+	double PressureMb,
+	double PrecipMm,
+	int Humidity,
+	int Cloud,
+	double FeelslikeC,
+	double WindchillC,
+	double HeatindexC,
+	double DewpointC,
+	double VisKm,
+	double Uv,
+	double GustKph,
+	int ChanceOfRain,
+	int ChanceOfSnow
+);
